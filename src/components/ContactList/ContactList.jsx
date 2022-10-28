@@ -1,6 +1,7 @@
-import {Button, Ul, Li} from './ContactList.styled'
+import { Button, Ul, Li } from './ContactList.styled'
+import PropTypes from 'prop-types';
 
-const ContactList = ({ id, contacts, deleteContact }) => (
+const ContactList = ({contacts, deleteContact }) => (
     <Ul>
         {contacts.map(contact => (
             <Li key={contact.id}>
@@ -14,5 +15,13 @@ const ContactList = ({ id, contacts, deleteContact }) => (
         ))}
    </Ul>)
         
+ContactList.propTypes = {
+    deleteContact: PropTypes.func.isRequired,
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+    }),),
+}
         
 export default ContactList;

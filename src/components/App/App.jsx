@@ -3,28 +3,21 @@ import ContactForm from '../ContactForm/ContactForm'
 import ContactList from '../ContactList/ContactList'
 import Filter from '../Filter/Filter'
 import { nanoid } from 'nanoid';
-import {Title, Div} from './App.styled'
+import { Title, Div } from './App.styled'
+import PropTypes from 'prop-types';
 
 
 
 class App extends React.Component{
   state = {
-    contacts: [
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: [],
     filter: ''
   }
 
   formSubmit = data => {
     const { name, number } = data;
-     const { contacts } = this.state;
- const isExist = this.state.contacts.some(
-      (prevData) =>
-        prevData.name === name &&
-        prevData.number === number
+ const isExist = this.state.contacts.find(contact =>
+        contact.name.toLowerCase() === name.toLowerCase()
     );
      if (isExist) {
       alert(
@@ -32,8 +25,13 @@ class App extends React.Component{
       );
       return;
     }
-    this.setState({ name: name, number: number });
-    contacts.push({ id: nanoid(), name: name, number: number });
+    this.setState(prev => {
+      data.id = nanoid();
+      return {
+        contacts: [...prev.contacts, data,]
+      }
+      
+    })
 }
 
  changeFilter = e => {
@@ -76,4 +74,6 @@ class App extends React.Component{
   }
 
 }
+
+
 export default App;
