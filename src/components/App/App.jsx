@@ -32,7 +32,10 @@ class App extends React.Component{
       }
       
     })
-}
+  }
+  
+  
+    
 
  changeFilter = e => {
    this.setState({ filter: e.target.value });
